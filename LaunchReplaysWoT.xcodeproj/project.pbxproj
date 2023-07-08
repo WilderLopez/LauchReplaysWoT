@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81293B402A59AD1C0035C40C /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B3F2A59AD1C0035C40C /* ProcessInfo.swift */; };
+		81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B422A59B8A60035C40C /* ProcessManager.swift */; };
+		81293B452A59B93C0035C40C /* ProcessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B442A59B93C0035C40C /* ProcessModel.swift */; };
+		81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B472A59C59C0035C40C /* ImageStatusModifier.swift */; };
 		81FE253D2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */; };
 		81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253E2A596CB900F4CC73 /* ContentView.swift */; };
 		81FE25412A596CBA00F4CC73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FE25402A596CBA00F4CC73 /* Assets.xcassets */; };
@@ -14,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81293B3F2A59AD1C0035C40C /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
+		81293B422A59B8A60035C40C /* ProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessManager.swift; sourceTree = "<group>"; };
+		81293B442A59B93C0035C40C /* ProcessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessModel.swift; sourceTree = "<group>"; };
+		81293B472A59C59C0035C40C /* ImageStatusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatusModifier.swift; sourceTree = "<group>"; };
 		81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplaysWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReplaysWoTApp.swift; sourceTree = "<group>"; };
 		81FE253E2A596CB900F4CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,6 +41,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81293B3E2A59AD0C0035C40C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81293B3F2A59AD1C0035C40C /* ProcessInfo.swift */,
+				81293B442A59B93C0035C40C /* ProcessModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		81293B412A59B89B0035C40C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				81293B422A59B8A60035C40C /* ProcessManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		81293B462A59C58A0035C40C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				81293B472A59C59C0035C40C /* ImageStatusModifier.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		81FE25302A596CB900F4CC73 = {
 			isa = PBXGroup;
 			children = (
@@ -52,6 +85,9 @@
 		81FE253B2A596CB900F4CC73 /* LaunchReplaysWoT */ = {
 			isa = PBXGroup;
 			children = (
+				81293B462A59C58A0035C40C /* Utils */,
+				81293B412A59B89B0035C40C /* Manager */,
+				81293B3E2A59AD0C0035C40C /* Model */,
 				81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */,
 				81FE253E2A596CB900F4CC73 /* ContentView.swift */,
 				81FE25402A596CBA00F4CC73 /* Assets.xcassets */,
@@ -139,8 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81293B402A59AD1C0035C40C /* ProcessInfo.swift in Sources */,
+				81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */,
+				81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */,
 				81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */,
 				81FE253D2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift in Sources */,
+				81293B452A59B93C0035C40C /* ProcessModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
