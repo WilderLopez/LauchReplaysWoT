@@ -10,26 +10,23 @@ import SwiftUI
 struct ContentView: View {
     
     @State var vm : ProcessManager = .init()
-    
-//    @State var currentProcess : ProcessInfo = .loadingWine
-    
+    @State var processStack : [ProcessModel] = []
+        
     @State var processStep = 0
     
     var pathWine = ""
     var pathExecutable = ""
     var pathReplay = ""
     
-    @State var shouldOverlayBorders = false
     @State var idProcessHovered : UUID = .init()
     
     var body: some View {
         VStack(spacing: 20) {
             
-            ForEach(vm.processStack, id: \.id) { process in
+            ForEach(processStack, id: \.id) { process in
                 RowView(process: process)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, lineWidth: idProcessHovered == process.id ? 3 : 0))
                     .transition(.opacity)
-                    
                     .onHover { isHover in
                         withAnimation(.default) {
                             if isHover {
@@ -41,6 +38,14 @@ struct ContentView: View {
                     }
                     .onTapGesture {
                         debugPrint("tapped proccess: \(process.type) - \(process.status)")
+                        
+                        //select action for current process
+                        vm.doAction(for: process)
+                    }
+                    .onAppear{
+                        withAnimation(.default) {
+                            vm.doAction(for: process)
+                        }
                     }
                     
             }
@@ -56,6 +61,9 @@ struct ContentView: View {
             
         }
         .padding()
+        .onReceive(vm.$processStack) { processStack in
+            self.processStack = processStack
+        }
     }
     
     func RowView(process: ProcessModel) -> some View {
@@ -99,7 +107,7 @@ struct ContentView: View {
                     .font(.system(size: 30))
                     .foregroundColor(.red)
             }
-        }
+        }.frame(height: 40)
         
     }
     
