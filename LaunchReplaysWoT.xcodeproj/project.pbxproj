@@ -11,6 +11,7 @@
 		81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B422A59B8A60035C40C /* ProcessManager.swift */; };
 		81293B452A59B93C0035C40C /* ProcessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B442A59B93C0035C40C /* ProcessModel.swift */; };
 		81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B472A59C59C0035C40C /* ImageStatusModifier.swift */; };
+		815042602A5C21E00059C0C0 /* NSOpenPanelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */; };
 		81FE253D2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */; };
 		81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253E2A596CB900F4CC73 /* ContentView.swift */; };
 		81FE25412A596CBA00F4CC73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FE25402A596CBA00F4CC73 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		81293B422A59B8A60035C40C /* ProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessManager.swift; sourceTree = "<group>"; };
 		81293B442A59B93C0035C40C /* ProcessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessModel.swift; sourceTree = "<group>"; };
 		81293B472A59C59C0035C40C /* ImageStatusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatusModifier.swift; sourceTree = "<group>"; };
+		8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOpenPanelExtension.swift; sourceTree = "<group>"; };
 		81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplaysWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReplaysWoTApp.swift; sourceTree = "<group>"; };
 		81FE253E2A596CB900F4CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				81293B472A59C59C0035C40C /* ImageStatusModifier.swift */,
+				8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81293B402A59AD1C0035C40C /* ProcessInfo.swift in Sources */,
+				815042602A5C21E00059C0C0 /* NSOpenPanelExtension.swift in Sources */,
 				81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */,
 				81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */,
 				81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */,

@@ -13,6 +13,6 @@ struct LaunchReplaysWoTApp: App {
         WindowGroup {
             ContentView()
                 .frame(width: 500, height: 450, alignment: .center)
-        }
+        }.windowResizability(.contentSize)
     }
 }

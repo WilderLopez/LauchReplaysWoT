@@ -12,13 +12,10 @@ struct ContentView: View {
     @State var vm : ProcessManager = .init()
     @State var processStack : [ProcessModel] = []
         
-    @State var processStep = 0
-    
-    var pathWine = ""
-    var pathExecutable = ""
-    var pathReplay = ""
+    @State var currentFailedProcess: ProcessModel = .init()
     
     @State var idProcessHovered : UUID = .init()
+    @State var shouldShowDragArea = false
     
     var body: some View {
         VStack(spacing: 20) {
@@ -49,20 +46,23 @@ struct ContentView: View {
                     }
                     
             }
+            Spacer()
             
-                
-//            if currentProcess == .readyToPlay {
-//                LaunchReplayButton
-//            } else {
-//                LoadPathButton
-//            }
-            
-            
+            if shouldShowDragArea {
+                //Drag and Drop
+                dragAndDropView
+            }
             
         }
         .padding()
         .onReceive(vm.$processStack) { processStack in
             self.processStack = processStack
+        }
+        .onReceive(vm.$currentProcessFailed) { failedProcess in
+            shouldShowDragArea = failedProcess != nil
+            if let failedProcess = failedProcess {
+                currentFailedProcess = failedProcess
+            }
         }
     }
     
@@ -111,12 +111,59 @@ struct ContentView: View {
         
     }
     
-    var LoadPathButton : some View {
-        Button {
-//            processStep +=  processStep < 5 ? 1 : 0
-//            currentProcess = ProcessInfo(rawValue: processStep) ?? .readyToPlay
-        } label: {
-            Text("Search path")
+    
+    @State var isHoverDragArea = false
+    var dragAndDropView : some View {
+        ZStack {
+            Color.purple.opacity(0.1)
+            
+            Text("Drag and Drop or click to search \(currentFailedProcess.type.getInfo())")
+                .multilineTextAlignment(.center)
+                .font(.title2)
+                .foregroundColor(.purple)
+                .overlay(
+                    Rectangle()
+                        .fill(Color.purple)
+                        .frame(height: isHoverDragArea ? 2 : 0)
+                        .offset(x: 0, y: 15)
+                )
+                
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        .cornerRadius(10, antialiased: true)
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple.opacity(isHoverDragArea ? 1 : 0.5), style: StrokeStyle(lineWidth: 3, dash: [10])))
+        .padding(10)
+        .onHover { isHover in
+            withAnimation(.default) {
+                isHoverDragArea = isHover
+            }
+        }
+        .onTapGesture {
+            //open sheet folder
+            NSOpenPanel.openFile { result in
+                if case let .success(item) = result {
+                    debugPrint("item loaded: \(item.name)")
+                    self.vm.currentProcessFailed?.path = item.url?.absoluteString
+                }
+            }
+        }
+        .onDrop(of: ["public.url" , "public.file-url"], isTargeted: nil) { (items) -> Bool in
+            if let item = items.first {
+                if let identifier = item.registeredTypeIdentifiers.first {
+                    if identifier == "public.url" || identifier == "public.file-url" {
+                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, error) in
+                            DispatchQueue.main.async {
+                                if let urlData = urlData as? Data {
+                                    let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                    debugPrint("File URL Droped: \(url)")
+                                    self.vm.currentProcessFailed?.path = url.absoluteString
+                                }
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+            return false
         }
     }
     

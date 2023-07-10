@@ -15,7 +15,8 @@ class ProcessManager: ObservableObject {
         .init(type: .executable, status: .initial, path: nil),
         .init(type: .replay, status: .initial, path: nil)
     ]
-
+    @Published var currentProcessFailed : ProcessModel? = nil
+    
 //    @Published var currentProcess : ProcessModel = .init()
     
     
@@ -30,25 +31,23 @@ class ProcessManager: ObservableObject {
                 
                 //check if file path exists
                 DispatchQueue.main.asyncAfter(wallDeadline: .now() + 1) {
-                    if self.detectIfPathExists(process: process) {
+                    if self.checkFileExists(filePath: process.path) {
                         self.processStack[index].status = .done
-                        print("file exist!")
-                        //try to save the path url
+                        print("file exist with default url")
                     }else {
                         self.processStack[index].status = .failed
-                        print("file not found")
-                        
+                        print("file not found, with default: \(String(describing: process.path))")
+                        //check first process to fail
+                        self.checkFirstProcessToFail()
                     }
                 }
                 
                 break
             case .loading:
                 // should wait for a response (fail or success)
-                processStack[index].status = .done
                 break
             case .done:
                 // do noting
-//                processStack[index].status =
                 break
             case .failed:
                 // do initial again
@@ -60,32 +59,17 @@ class ProcessManager: ObservableObject {
         
     }
     
-    private func detectIfPathExists(process: ProcessModel) -> Bool {
-        switch process.type {
-        case .wine: return checkWineExists()
-        case .executable: return checkGameExists()
-        case .replay: return checkReplayExistis()
+    func checkFirstProcessToFail() {
+        currentProcessFailed = processStack.first(where: {$0.status == .failed})
+    }
+    
+    private func checkFileExists(filePath: String?) -> Bool {
+        if let filePath = filePath{
+            debugPrint("fie path ", filePath)
+            let fileManager = FileManager.default
+            return fileManager.fileExists(atPath: filePath)
         }
-    }
-    
-    private func checkWineExists() -> Bool {
-        let winePath = "/Applications/Wargaming.net Game Center.app/Contents/SharedSupport/wargaminggamecenter/Wargaming.net Game Center/wine"
-        let fileManager = FileManager.default
-        return fileManager.fileExists(atPath: winePath)
-    }
-    
-    private func checkGameExists() -> Bool {
-        let username = NSUserName()
-        let gameFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/win64/WorldOfTanks.exe"
-        let fileManager = FileManager.default
-        return fileManager.fileExists(atPath: gameFilePath)
-    }
-
-    private func checkReplayExistis() -> Bool {
-        let username = NSUserName()
-        let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/replays"
-        let fileManager = FileManager.default
-        return fileManager.fileExists(atPath: replayFilePath)
+        return false
     }
     
 }

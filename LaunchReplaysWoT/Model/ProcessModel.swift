@@ -10,22 +10,27 @@ import Foundation
 struct ProcessModel : Identifiable {
     var id: UUID
     
-    var type: ProcessType
+    var type: ProcessType {
+        didSet {
+            definedPaths(for: type)
+        }
+    }
     var status: ProcessStatus
-    var path: URL?
+    var path: String?
     
-    init(type: ProcessType, status: ProcessStatus, path: URL?) {
+    init(type: ProcessType, status: ProcessStatus, path: String?) {
         self.id = UUID()
         self.type = type
         self.status = status
         self.path = path
+        definedPaths(for: type)
     }
     
     init() {
         self.id = UUID()
         self.type = .replay
         self.status = .initial
-        self.path = nil
+        definedPaths(for: type)
     }
     
     func getInfo() -> String {
@@ -38,6 +43,21 @@ struct ProcessModel : Identifiable {
             return "\(type.getInfo()) has been loaded successfully."
         case .failed:
             return "Failed to load \(type.getInfo())."
+        }
+    }
+    
+    private mutating func definedPaths(for type: ProcessType) {
+        let username = NSUserName()
+        switch type {
+        case .wine:
+            let wineFilePath = "/Applications/Wargaming.net Game Center.app/Contents/SharedSupport/wargaminggamecenter/Wargaming.net Game Center/wine"
+            path = wineFilePath
+        case .executable:
+            let gameFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/win64/WorldOfTanks.exe"
+            path = gameFilePath
+        case .replay:
+            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/replays/replay_last_battle.wotreplay"
+            path = replayFilePath
         }
     }
 }
@@ -56,7 +76,7 @@ enum ProcessType {
         case .executable:
             return "WorldOfTanks.exe"
         case .replay:
-            return "Your replay file"
+            return "Your last battle replay file"
         }
     }
 }
