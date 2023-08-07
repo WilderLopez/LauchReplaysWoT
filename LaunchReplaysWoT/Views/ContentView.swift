@@ -13,12 +13,28 @@ struct ContentView: View {
     @State var processStack : [ProcessModel] = []
         
     @State var currentFailedProcess: ProcessModel = .init()
+    @State var currentNewReplayProcess: ProcessModel = .init()
+    
+    @State var showDropAreaWhenFails = false
     
     @State var idProcessHovered : UUID = .init()
-    @State var shouldShowDragArea = false
+    
+    @State var selectedRegion : GameRegion = .ASIA
     
     var body: some View {
         VStack(spacing: 20) {
+            
+            VStack {
+                Picker("Choose your Region", selection: $selectedRegion) {
+                    Text("Europe").tag(GameRegion.EU)
+                    Text("North America").tag(GameRegion.NA)
+                    Text("Russia").tag(GameRegion.RU)
+                    Text("Asia").tag(GameRegion.ASIA)
+                }.pickerStyle(.menu)
+            }.onChange(of: selectedRegion) { newRegion in
+                vm.chageRegion(newRegion)
+            }
+            
             
             ForEach(processStack, id: \.id) { process in
                 RowView(process: process)
@@ -41,16 +57,39 @@ struct ContentView: View {
                     }
                     .onAppear{
                         withAnimation(.default) {
-                            vm.doAction(for: process)
+                            vm.chageRegion(selectedRegion)
+//                            vm.doAction(for: process)
                         }
                     }
                     
             }
             Spacer()
             
-            if shouldShowDragArea {
-                //Drag and Drop
-                dragAndDropView
+            if showDropAreaWhenFails {
+                VStack (spacing: 0) {
+                    Text("⬇️ Try to add the missing file ⬇️\n\(currentFailedProcess.type.getInfo())")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                    
+                    DragAndDropView(currentProcess: $currentFailedProcess)
+                        .onChange(of: currentFailedProcess) { newValue in
+                            vm.currentProcessFailed?.path = newValue.path
+                            vm.checkFirstProcessToDone()
+                        }
+                }
+                
+            }else { //new replay
+                VStack(spacing: 0){
+                    Text("⬇️ Add a replay file here ⬇️")
+                        .font(.title2)
+                        .foregroundColor(.purple)
+                    
+                    DragAndDropView(currentProcess: $currentNewReplayProcess)
+                        .onChange(of: currentNewReplayProcess) { newValue in
+                            vm.currentProcessFailed?.path = newValue.path
+                        }
+                }
             }
             
         }
@@ -59,7 +98,7 @@ struct ContentView: View {
             self.processStack = processStack
         }
         .onReceive(vm.$currentProcessFailed) { failedProcess in
-            shouldShowDragArea = failedProcess != nil
+            showDropAreaWhenFails = failedProcess != nil
             if let failedProcess = failedProcess {
                 currentFailedProcess = failedProcess
             }
@@ -111,61 +150,6 @@ struct ContentView: View {
         
     }
     
-    
-    @State var isHoverDragArea = false
-    var dragAndDropView : some View {
-        ZStack {
-            Color.purple.opacity(0.1)
-            
-            Text("Drag and Drop or click to search \(currentFailedProcess.type.getInfo())")
-                .multilineTextAlignment(.center)
-                .font(.title2)
-                .foregroundColor(.purple)
-                .overlay(
-                    Rectangle()
-                        .fill(Color.purple)
-                        .frame(height: isHoverDragArea ? 2 : 0)
-                        .offset(x: 0, y: 15)
-                )
-                
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-        .cornerRadius(10, antialiased: true)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple.opacity(isHoverDragArea ? 1 : 0.5), style: StrokeStyle(lineWidth: 3, dash: [10])))
-        .padding(10)
-        .onHover { isHover in
-            withAnimation(.default) {
-                isHoverDragArea = isHover
-            }
-        }
-        .onTapGesture {
-            //open sheet folder
-            NSOpenPanel.openFile { result in
-                if case let .success(item) = result {
-                    debugPrint("item loaded: \(item.name)")
-                    self.vm.currentProcessFailed?.path = item.url?.absoluteString
-                }
-            }
-        }
-        .onDrop(of: ["public.url" , "public.file-url"], isTargeted: nil) { (items) -> Bool in
-            if let item = items.first {
-                if let identifier = item.registeredTypeIdentifiers.first {
-                    if identifier == "public.url" || identifier == "public.file-url" {
-                        item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, error) in
-                            DispatchQueue.main.async {
-                                if let urlData = urlData as? Data {
-                                    let url = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                    debugPrint("File URL Droped: \(url)")
-                                    self.vm.currentProcessFailed?.path = url.absoluteString
-                                }
-                            }
-                        }
-                    }
-                }
-                return true
-            }
-            return false
-        }
-    }
     
     var LaunchReplayButton: some View {
         Button {

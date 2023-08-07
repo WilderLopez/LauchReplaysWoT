@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct ProcessModel : Identifiable {
+struct ProcessModel : Identifiable , Equatable{
     var id: UUID
-    
     var type: ProcessType {
         didSet {
             definedPaths(for: type)
@@ -17,6 +16,7 @@ struct ProcessModel : Identifiable {
     }
     var status: ProcessStatus
     var path: String?
+    var region : GameRegion = .EU
     
     init(type: ProcessType, status: ProcessStatus, path: String?) {
         self.id = UUID()
@@ -33,6 +33,15 @@ struct ProcessModel : Identifiable {
         definedPaths(for: type)
     }
     
+    static func InitialModel() -> [ProcessModel] {
+        let initialModel : [ProcessModel] = [
+            .init(type: .wine, status: .initial, path: nil),
+            .init(type: .executable, status: .initial, path: nil),
+            .init(type: .replay, status: .initial, path: nil)
+        ]
+        return initialModel
+    }
+    
     func getInfo() -> String {
         switch status {
         case .initial:
@@ -46,6 +55,12 @@ struct ProcessModel : Identifiable {
         }
     }
     
+    public mutating func changeRegion(_ value: GameRegion) {
+        self.region = value
+        status = .initial
+        definedPaths(for: type)
+    }
+    
     private mutating func definedPaths(for type: ProcessType) {
         let username = NSUserName()
         switch type {
@@ -53,13 +68,22 @@ struct ProcessModel : Identifiable {
             let wineFilePath = "/Applications/Wargaming.net Game Center.app/Contents/SharedSupport/wargaminggamecenter/Wargaming.net Game Center/wine"
             path = wineFilePath
         case .executable:
-            let gameFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/win64/WorldOfTanks.exe"
+            let gameFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/win64/WorldOfTanks.exe"
             path = gameFilePath
         case .replay:
-            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_EU/replays/replay_last_battle.wotreplay"
+            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/replay_last_battle.wotreplay"
             path = replayFilePath
+        case .notDefined:
+            path = nil
         }
     }
+}
+
+enum GameRegion : String {
+    case EU = "EU"
+    case NA = "NA"
+    case RU = "RU"
+    case ASIA = "ASIA"
 }
 
 enum ProcessStatus {
@@ -67,7 +91,7 @@ enum ProcessStatus {
 }
 
 enum ProcessType {
-    case wine, executable, replay
+    case wine, executable, replay, notDefined
     
     func getInfo() -> String {
         switch self {
@@ -77,8 +101,12 @@ enum ProcessType {
             return "WorldOfTanks.exe"
         case .replay:
             return "Your last battle replay file"
+        default:
+            return "Undefined process"
         }
     }
 }
+
+
 
 
