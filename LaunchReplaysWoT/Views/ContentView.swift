@@ -19,7 +19,7 @@ struct ContentView: View {
     
     @State var idProcessHovered : UUID = .init()
     
-    @State var selectedRegion : GameRegion = .ASIA
+    @State var selectedRegion : GameRegion = .EU
     
     var body: some View {
         VStack(spacing: 20) {
@@ -32,7 +32,9 @@ struct ContentView: View {
                     Text("Asia").tag(GameRegion.ASIA)
                 }.pickerStyle(.menu)
             }.onChange(of: selectedRegion) { newRegion in
-                vm.chageRegion(newRegion)
+                withAnimation(.easeInOut){
+                    vm.chageRegion(newRegion)
+                }
             }
             
             
@@ -79,16 +81,38 @@ struct ContentView: View {
                         }
                 }
                 
-            }else { //new replay
-                VStack(spacing: 0){
-                    Text("⬇️ Add a replay file here ⬇️")
-                        .font(.title2)
-                        .foregroundColor(.purple)
+            }else {
+                
+                VStack(spacing: 30){
                     
-                    DragAndDropView(currentProcess: $currentNewReplayProcess)
-                        .onChange(of: currentNewReplayProcess) { newValue in
-                            vm.currentProcessFailed?.path = newValue.path
-                        }
+                    Button {
+                        //play replay
+                    } label: {
+                        HStack{
+                            Text("Play")
+                            Image(systemName: "play.fill")
+                        }.foregroundColor(.white)
+                            .font(.title)
+                            .padding()
+                            .background {
+                                Color.purple
+                            }
+                            .cornerRadius(10)
+                    }.buttonStyle(.plain)
+
+                    
+                    
+                    //new replay
+                    VStack(spacing: 0){
+                        Text("⬇️ Add a replay file here ⬇️")
+                            .font(.title2)
+                            .foregroundColor(.purple)
+                        
+                        DragAndDropView(currentProcess: $currentNewReplayProcess)
+                            .onChange(of: currentNewReplayProcess) { newValue in
+                                vm.currentProcessFailed?.path = newValue.path
+                            }
+                    }
                 }
             }
             
@@ -98,7 +122,10 @@ struct ContentView: View {
             self.processStack = processStack
         }
         .onReceive(vm.$currentProcessFailed) { failedProcess in
-            showDropAreaWhenFails = failedProcess != nil
+            withAnimation(.easeInOut) {
+                showDropAreaWhenFails = failedProcess != nil
+            }
+            
             if let failedProcess = failedProcess {
                 currentFailedProcess = failedProcess
             }
