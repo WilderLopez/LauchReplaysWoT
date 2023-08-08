@@ -10,9 +10,11 @@
 		81293B402A59AD1C0035C40C /* ProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B3F2A59AD1C0035C40C /* ProcessInfo.swift */; };
 		81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B422A59B8A60035C40C /* ProcessManager.swift */; };
 		81293B452A59B93C0035C40C /* ProcessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B442A59B93C0035C40C /* ProcessModel.swift */; };
-		81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81293B472A59C59C0035C40C /* ImageStatusModifier.swift */; };
 		815042602A5C21E00059C0C0 /* NSOpenPanelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */; };
 		815042632A5C3AF50059C0C0 /* DragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815042622A5C3AF50059C0C0 /* DragAndDropView.swift */; };
+		817CEB162A82427000BC7187 /* TerminalHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817CEB152A82427000BC7187 /* TerminalHelper.swift */; };
+		817CEB182A82557100BC7187 /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817CEB172A82557100BC7187 /* View++.swift */; };
+		817CEB1A2A82585500BC7187 /* AvailableAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817CEB192A82585500BC7187 /* AvailableAlert.swift */; };
 		81FE253D2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */; };
 		81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FE253E2A596CB900F4CC73 /* ContentView.swift */; };
 		81FE25412A596CBA00F4CC73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FE25402A596CBA00F4CC73 /* Assets.xcassets */; };
@@ -23,10 +25,12 @@
 		81293B3F2A59AD1C0035C40C /* ProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfo.swift; sourceTree = "<group>"; };
 		81293B422A59B8A60035C40C /* ProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessManager.swift; sourceTree = "<group>"; };
 		81293B442A59B93C0035C40C /* ProcessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessModel.swift; sourceTree = "<group>"; };
-		81293B472A59C59C0035C40C /* ImageStatusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatusModifier.swift; sourceTree = "<group>"; };
 		8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSOpenPanelExtension.swift; sourceTree = "<group>"; };
 		815042622A5C3AF50059C0C0 /* DragAndDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropView.swift; sourceTree = "<group>"; };
-		81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplaysWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		817CEB152A82427000BC7187 /* TerminalHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalHelper.swift; sourceTree = "<group>"; };
+		817CEB172A82557100BC7187 /* View++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
+		817CEB192A82585500BC7187 /* AvailableAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableAlert.swift; sourceTree = "<group>"; };
+		81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplayWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReplaysWoTApp.swift; sourceTree = "<group>"; };
 		81FE253E2A596CB900F4CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		81FE25402A596CBA00F4CC73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,8 +69,10 @@
 		81293B462A59C58A0035C40C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				81293B472A59C59C0035C40C /* ImageStatusModifier.swift */,
+				817CEB142A82425D00BC7187 /* Terminal */,
 				8150425F2A5C21E00059C0C0 /* NSOpenPanelExtension.swift */,
+				817CEB172A82557100BC7187 /* View++.swift */,
+				817CEB192A82585500BC7187 /* AvailableAlert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -80,6 +86,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		817CEB142A82425D00BC7187 /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				817CEB152A82427000BC7187 /* TerminalHelper.swift */,
+			);
+			path = Terminal;
+			sourceTree = "<group>";
+		};
 		81FE25302A596CB900F4CC73 = {
 			isa = PBXGroup;
 			children = (
@@ -91,7 +105,7 @@
 		81FE253A2A596CB900F4CC73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */,
+				81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,9 +136,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		81FE25382A596CB900F4CC73 /* LaunchReplaysWoT */ = {
+		81FE25382A596CB900F4CC73 /* LaunchReplayWoT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplaysWoT" */;
+			buildConfigurationList = 81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplayWoT" */;
 			buildPhases = (
 				81FE25352A596CB900F4CC73 /* Sources */,
 				81FE25362A596CB900F4CC73 /* Frameworks */,
@@ -134,9 +148,9 @@
 			);
 			dependencies = (
 			);
-			name = LaunchReplaysWoT;
+			name = LaunchReplayWoT;
 			productName = LaunchReplaysWoT;
-			productReference = 81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */;
+			productReference = 81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -167,7 +181,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				81FE25382A596CB900F4CC73 /* LaunchReplaysWoT */,
+				81FE25382A596CB900F4CC73 /* LaunchReplayWoT */,
 			);
 		};
 /* End PBXProject section */
@@ -191,11 +205,13 @@
 			files = (
 				81293B402A59AD1C0035C40C /* ProcessInfo.swift in Sources */,
 				815042602A5C21E00059C0C0 /* NSOpenPanelExtension.swift in Sources */,
+				817CEB182A82557100BC7187 /* View++.swift in Sources */,
+				817CEB162A82427000BC7187 /* TerminalHelper.swift in Sources */,
 				81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */,
-				81293B482A59C59C0035C40C /* ImageStatusModifier.swift in Sources */,
 				81FE253F2A596CB900F4CC73 /* ContentView.swift in Sources */,
 				815042632A5C3AF50059C0C0 /* DragAndDropView.swift in Sources */,
 				81FE253D2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift in Sources */,
+				817CEB1A2A82585500BC7187 /* AvailableAlert.swift in Sources */,
 				81293B452A59B93C0035C40C /* ProcessModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -307,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -330,13 +346,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replay - WoT";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplayWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -357,13 +376,16 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replay - WoT";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplayWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -382,7 +404,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplaysWoT" */ = {
+		81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplayWoT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				81FE25492A596CBA00F4CC73 /* Debug */,

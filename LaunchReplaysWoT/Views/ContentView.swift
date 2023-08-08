@@ -21,101 +21,20 @@ struct ContentView: View {
     
     @State var selectedRegion : GameRegion = .EU
     
+    @State var isProcessRunning = false
+    
     var body: some View {
         VStack(spacing: 20) {
+            RegionView
+            ProcessStackView
             
-            VStack {
-                Picker("Choose your Region", selection: $selectedRegion) {
-                    Text("Europe").tag(GameRegion.EU)
-                    Text("North America").tag(GameRegion.NA)
-                    Text("Russia").tag(GameRegion.RU)
-                    Text("Asia").tag(GameRegion.ASIA)
-                }.pickerStyle(.menu)
-            }.onChange(of: selectedRegion) { newRegion in
-                withAnimation(.easeInOut){
-                    vm.chageRegion(newRegion)
-                }
-            }
-            
-            
-            ForEach(processStack, id: \.id) { process in
-                RowView(process: process)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, lineWidth: idProcessHovered == process.id ? 3 : 0))
-                    .transition(.opacity)
-                    .onHover { isHover in
-                        withAnimation(.default) {
-                            if isHover {
-                                idProcessHovered = process.id
-                            }else {
-                                idProcessHovered = .init()
-                            }
-                        }
-                    }
-                    .onTapGesture {
-                        debugPrint("tapped proccess: \(process.type) - \(process.status)")
-                        
-                        //select action for current process
-                        vm.doAction(for: process)
-                    }
-                    .onAppear{
-                        withAnimation(.default) {
-                            vm.chageRegion(selectedRegion)
-//                            vm.doAction(for: process)
-                        }
-                    }
-                    
-            }
             Spacer()
             
             if showDropAreaWhenFails {
-                VStack (spacing: 0) {
-                    Text("⬇️ Try to add the missing file ⬇️\n\(currentFailedProcess.type.getInfo())")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                    
-                    DragAndDropView(currentProcess: $currentFailedProcess)
-                        .onChange(of: currentFailedProcess) { newValue in
-                            vm.currentProcessFailed?.path = newValue.path
-                            vm.checkFirstProcessToDone()
-                        }
-                }
-                
+                MissingFileArea
             }else {
-                
-                VStack(spacing: 30){
-                    
-                    Button {
-                        //play replay
-                    } label: {
-                        HStack{
-                            Text("Play")
-                            Image(systemName: "play.fill")
-                        }.foregroundColor(.white)
-                            .font(.title)
-                            .padding()
-                            .background {
-                                Color.purple
-                            }
-                            .cornerRadius(10)
-                    }.buttonStyle(.plain)
-
-                    
-                    
-                    //new replay
-                    VStack(spacing: 0){
-                        Text("⬇️ Add a replay file here ⬇️")
-                            .font(.title2)
-                            .foregroundColor(.purple)
-                        
-                        DragAndDropView(currentProcess: $currentNewReplayProcess)
-                            .onChange(of: currentNewReplayProcess) { newValue in
-                                vm.currentProcessFailed?.path = newValue.path
-                            }
-                    }
-                }
+                ReplayArea
             }
-            
         }
         .padding()
         .onReceive(vm.$processStack) { processStack in
@@ -130,8 +49,12 @@ struct ContentView: View {
                 currentFailedProcess = failedProcess
             }
         }
+        .onReceive(vm.$isProcessRunning) { isRunning in
+            self.isProcessRunning = isRunning
+        }
     }
     
+    //MARK: Method Area
     func RowView(process: ProcessModel) -> some View {
          HStack {
             
@@ -177,7 +100,7 @@ struct ContentView: View {
         
     }
     
-    
+    //MARK: Variables Area
     var LaunchReplayButton: some View {
         Button {
             
@@ -185,6 +108,102 @@ struct ContentView: View {
             Text("Launch replay")
         }
 
+    }
+    
+    var ProcessStackView: some View {
+        ForEach(processStack, id: \.id) { process in
+            RowView(process: process)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, lineWidth: idProcessHovered == process.id ? 3 : 0))
+                .transition(.opacity)
+                .onHover { isHover in
+                    withAnimation(.default) {
+                        if isHover {
+                            idProcessHovered = process.id
+                        }else {
+                            idProcessHovered = .init()
+                        }
+                    }
+                }
+                .onTapGesture {
+                    debugPrint("tapped proccess: \(process.type) - \(process.status)")
+                    
+                    //select action for current process
+                    vm.doAction(for: process)
+                }
+                .onAppear{
+                    withAnimation(.default) {
+                        vm.chageRegion(selectedRegion)
+//                            vm.doAction(for: process)
+                    }
+                }
+                
+        }
+    }
+    
+    var RegionView: some View {
+        VStack {
+            Picker("Choose your Region", selection: $selectedRegion) {
+                Text("Europe").tag(GameRegion.EU)
+                Text("North America").tag(GameRegion.NA)
+                Text("Russia").tag(GameRegion.RU)
+                Text("Asia").tag(GameRegion.ASIA)
+            }.pickerStyle(.menu)
+        }
+        .onChange(of: selectedRegion) { newRegion in
+            withAnimation(.easeInOut){
+                vm.chageRegion(newRegion)
+            }
+        }
+    }
+    
+    var ReplayArea: some View {
+        VStack(spacing: 30){
+            
+            Button {
+                //play replay
+                vm.launchReplay()
+            } label: {
+                HStack{
+                    Text("Play")
+                    Image(systemName: "play.fill")
+                }.foregroundColor(.white)
+                    .font(.title)
+                    .padding()
+                    .background (
+                        Color.purple.opacity(isProcessRunning ? 0.5 : 1)
+                    )
+                    .cornerRadius(10)
+            }.buttonStyle(.plain)
+            .disabled(isProcessRunning)
+            
+
+            //new replay
+            VStack(spacing: 0){
+                Text("⬇️ Add a replay file here ⬇️")
+                    .font(.title2)
+                    .foregroundColor(.purple)
+                
+                DragAndDropView(currentProcess: $currentNewReplayProcess)
+                    .onChange(of: currentNewReplayProcess) { newValue in
+                        vm.currentProcessFailed?.path = newValue.path
+                    }
+            }
+        }
+    }
+    
+    var MissingFileArea: some View {
+        VStack (spacing: 0) {
+            Text("⬇️ Try to add the missing file ⬇️\n\(currentFailedProcess.type.getInfo())")
+                .font(.title2)
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+            
+            DragAndDropView(currentProcess: $currentFailedProcess)
+                .onChange(of: currentFailedProcess) { newValue in
+                    vm.currentProcessFailed?.path = newValue.path
+                    vm.checkFirstProcessToDone()
+                }
+        }
     }
 }
 

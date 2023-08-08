@@ -108,14 +108,7 @@ struct DragAndDropView :  View {
                 return true
             }
             return false
-        }
-        .alert("You are trying to load the wrong file.", isPresented: $showAlertMissingFile) {
-            Button {
-                debugPrint("button ok is pressed")
-            } label: {
-                Text("Try again!")
-            }
-
-        }
+        }.alertSupportMacOS12(isPresented: $showAlertMissingFile)
+        
     }
 }

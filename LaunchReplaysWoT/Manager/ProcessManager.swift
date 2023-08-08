@@ -13,6 +13,8 @@ class ProcessManager: ObservableObject {
     @Published var processStack : [ProcessModel] = ProcessModel.InitialModel()
     @Published var currentProcessFailed : ProcessModel? = nil
     
+    @Published var isProcessRunning = false
+    
 //    @Published var currentProcess : ProcessModel = .init()
     
     
@@ -95,5 +97,38 @@ class ProcessManager: ObservableObject {
         return false
     }
     
+    func launchReplay(){
+        var pathWine: String?
+        var pathExe: String?
+        var pathReplay: String?
+        
+        processStack.forEach { process in
+            switch process.type {
+            case .wine:
+                pathWine = process.path
+            case .executable:
+                pathExe = process.path
+            case .replay:
+                pathReplay = process.path
+            case .notDefined:
+                return
+            }
+        }
+        
+        guard let pathWine = pathWine?.replacingOccurrences(of: " ", with: "\\ "),
+              let pathExe = pathExe?.replacingOccurrences(of: " ", with: "\\ "),
+              let pathReplay = pathReplay?.replacingOccurrences(of: " ", with: "\\ ") else { return }
+
+        let command = "\(pathWine) \(pathExe) \(pathReplay)"
+        print("command: \(command)")
+//        TerminalHelper.shared.executeCommand(command)
+        isProcessRunning = true
+        TerminalHelper.shared.executeCommand(command) { [unowned self] output in
+            print("Output: \(output)")
+            DispatchQueue.main.async {
+                self.isProcessRunning = false
+            }
+        }
+    }
     
 }
