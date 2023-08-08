@@ -30,7 +30,8 @@
 		817CEB152A82427000BC7187 /* TerminalHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalHelper.swift; sourceTree = "<group>"; };
 		817CEB172A82557100BC7187 /* View++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
 		817CEB192A82585500BC7187 /* AvailableAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableAlert.swift; sourceTree = "<group>"; };
-		81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplayWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		817CEB1B2A82608800BC7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaunchReplaysWoT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FE253C2A596CB900F4CC73 /* LaunchReplaysWoTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchReplaysWoTApp.swift; sourceTree = "<group>"; };
 		81FE253E2A596CB900F4CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		81FE25402A596CBA00F4CC73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,7 +106,7 @@
 		81FE253A2A596CB900F4CC73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */,
+				81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +114,7 @@
 		81FE253B2A596CB900F4CC73 /* LaunchReplaysWoT */ = {
 			isa = PBXGroup;
 			children = (
+				817CEB1B2A82608800BC7187 /* Info.plist */,
 				81293B462A59C58A0035C40C /* Utils */,
 				81293B412A59B89B0035C40C /* Manager */,
 				81293B3E2A59AD0C0035C40C /* Model */,
@@ -136,9 +138,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		81FE25382A596CB900F4CC73 /* LaunchReplayWoT */ = {
+		81FE25382A596CB900F4CC73 /* LaunchReplaysWoT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplayWoT" */;
+			buildConfigurationList = 81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplaysWoT" */;
 			buildPhases = (
 				81FE25352A596CB900F4CC73 /* Sources */,
 				81FE25362A596CB900F4CC73 /* Frameworks */,
@@ -148,9 +150,9 @@
 			);
 			dependencies = (
 			);
-			name = LaunchReplayWoT;
+			name = LaunchReplaysWoT;
 			productName = LaunchReplaysWoT;
-			productReference = 81FE25392A596CB900F4CC73 /* LaunchReplayWoT.app */;
+			productReference = 81FE25392A596CB900F4CC73 /* LaunchReplaysWoT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -181,7 +183,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				81FE25382A596CB900F4CC73 /* LaunchReplayWoT */,
+				81FE25382A596CB900F4CC73 /* LaunchReplaysWoT */,
 			);
 		};
 /* End PBXProject section */
@@ -346,16 +348,17 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replay - WoT";
+				INFOPLIST_FILE = LaunchReplaysWoT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replays - WoT";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Always Blue It Solutions";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplayWoT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -376,16 +379,17 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replay - WoT";
+				INFOPLIST_FILE = LaunchReplaysWoT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Launch Replays - WoT";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Always Blue It Solutions";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplayWoT;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -404,7 +408,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplayWoT" */ = {
+		81FE25482A596CBA00F4CC73 /* Build configuration list for PBXNativeTarget "LaunchReplaysWoT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				81FE25492A596CBA00F4CC73 /* Debug */,
