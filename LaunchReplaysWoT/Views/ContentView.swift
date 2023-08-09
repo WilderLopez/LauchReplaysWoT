@@ -113,7 +113,7 @@ struct ContentView: View {
     var ProcessStackView: some View {
         ForEach(processStack, id: \.id) { process in
             RowView(process: process)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple, lineWidth: idProcessHovered == process.id ? 3 : 0))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: idProcessHovered == process.id ? 3 : 0))
                 .transition(.opacity)
                 .onHover { isHover in
                     withAnimation(.default) {
@@ -170,7 +170,7 @@ struct ContentView: View {
                     .font(.title)
                     .padding()
                     .background (
-                        Color.purple.opacity(isProcessRunning ? 0.5 : 1)
+                        Color.accentColor.opacity(isProcessRunning ? 0.5 : 1)
                     )
                     .cornerRadius(10)
             }.buttonStyle(.plain)
@@ -181,7 +181,7 @@ struct ContentView: View {
             VStack(spacing: 0){
                 Text("⬇️ Add a replay file here ⬇️")
                     .font(.title2)
-                    .foregroundColor(.purple)
+                    .foregroundColor(.accentColor)
                 
                 DragAndDropView(currentProcess: $currentNewReplayProcess)
                     .onChange(of: currentNewReplayProcess) { newValue in
@@ -210,5 +210,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .frame(width: 500, height: 600, alignment: .center)
+            .mainBackgroundSupportable()
     }
 }

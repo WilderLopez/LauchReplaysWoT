@@ -17,17 +17,17 @@ struct DragAndDropView :  View {
     
     var body : some View {
         ZStack {
-            Color.purple.opacity(0.1)
+            Color.accentColor.opacity(0.1)
             
             Text("Drag and Drop or click to search the file")
                 .padding(.horizontal, 20)
                 .multilineTextAlignment(.center)
                 .font(.title3)
-                .foregroundColor(Color.purple.opacity(isHoverDragArea ? 1 : 0.5))
+                .foregroundColor(Color.accentColor.opacity(isHoverDragArea ? 1 : 0.5))
                 
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
         .cornerRadius(10, antialiased: true)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.purple.opacity(isHoverDragArea ? 1 : 0.5), style: StrokeStyle(lineWidth: 3, dash: [10])))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor.opacity(isHoverDragArea ? 1 : 0.5), style: StrokeStyle(lineWidth: 3, dash: [10])))
         .padding(10)
         .onHover { isHover in
             withAnimation(.default) {
