@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainContentView: View {
     
     @State var vm : ProcessManager = .init()
     @State var processStack : [ProcessModel] = []
@@ -189,6 +189,8 @@ struct ContentView: View {
                     }
             }
             
+            //FileInfo
+            
             Spacer()
             
             LaunchReplayButton
@@ -212,9 +214,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainContentView()
             .frame(width: 360, height: 600, alignment: .center)
             .mainBackgroundSupportable()
     }

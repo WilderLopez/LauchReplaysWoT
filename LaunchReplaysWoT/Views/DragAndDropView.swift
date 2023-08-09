@@ -12,7 +12,6 @@ struct DragAndDropView :  View {
     
     @Binding var currentProcess : ProcessModel
     @State var isHoverDragArea = false
-    
     @State var showAlertMissingFile = false
     
     var body : some View {
