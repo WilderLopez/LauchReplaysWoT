@@ -24,15 +24,13 @@ struct ContentView: View {
     @State var isProcessRunning = false
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 15) {
             RegionView
             ProcessStackView
             
-            Spacer()
-            
             if showDropAreaWhenFails {
                 MissingFileArea
-            }else {
+            } else {
                 ReplayArea
             }
         }
@@ -106,17 +104,22 @@ struct ContentView: View {
             //play replay
             vm.launchReplay()
         } label: {
-            HStack{
+            HStack(spacing: 10){
                 Text("Launch replay")
-                Image(systemName: "play.fill")
+                if isProcessRunning {
+                    ProgressView()
+                }
+                else {
+                    Image(systemName: "play.fill")
+                }
             }
-                .foregroundColor(.white)
-                .font(.title2)
-                .padding()
-                .background(
-                    Color.accentColor.opacity(isProcessRunning ? 0.5 : 1)
-                )
-                .cornerRadius(10)
+            .foregroundColor(.white)
+            .font(.title2)
+            .padding()
+            .background(
+                Color.accentColor.opacity(isProcessRunning ? 0.7 : 1)
+            )
+            .cornerRadius(10)
         }
         .buttonStyle(.plain)
         .disabled(isProcessRunning)
@@ -175,7 +178,7 @@ struct ContentView: View {
     var ReplayArea: some View {
         VStack(spacing: 30){
             //new replay
-            VStack(spacing: 0){
+            VStack(alignment: .leading, spacing: 5){
                 Text("Add a new replay file here")
                     .font(.body)
                     .foregroundColor(.accentColor)
@@ -185,6 +188,8 @@ struct ContentView: View {
                         vm.currentProcessFailed?.path = newValue.path
                     }
             }
+            
+            Spacer()
             
             LaunchReplayButton
         }
@@ -210,7 +215,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .frame(width: 500, height: 600, alignment: .center)
+            .frame(width: 360, height: 600, alignment: .center)
             .mainBackgroundSupportable()
     }
 }

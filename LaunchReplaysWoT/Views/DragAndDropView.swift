@@ -28,7 +28,7 @@ struct DragAndDropView :  View {
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
         .cornerRadius(10, antialiased: true)
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor.opacity(isHoverDragArea ? 1 : 0.5), style: StrokeStyle(lineWidth: 3, dash: [10])))
-        .padding(10)
+//        .padding(10)
         .onHover { isHover in
             withAnimation(.default) {
                 isHoverDragArea = isHover
@@ -108,7 +108,20 @@ struct DragAndDropView :  View {
                 return true
             }
             return false
-        }.alertSupportMacOS12(isPresented: $showAlertMissingFile)
-        
+        }
+        .alertSupportMacOS12(isPresented: $showAlertMissingFile)
+        .frame(height: 100)
+    }
+}
+
+
+struct DragAndDropView_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack{
+            
+            DragAndDropView(currentProcess: .constant(ProcessModel()))
+        }
+        .frame(width: 360, height: 400, alignment: .center)
+        .mainBackgroundSupportable()
     }
 }

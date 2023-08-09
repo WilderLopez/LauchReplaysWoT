@@ -12,7 +12,7 @@ struct LaunchReplaysWoTApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(width: 500, height: 600, alignment: .center)
+                .frame(width: 360, height: 600, alignment: .center)
                 .mainBackgroundSupportable()
             
         }.windowResizabilityContentSize()
