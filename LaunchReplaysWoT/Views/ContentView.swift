@@ -100,16 +100,30 @@ struct ContentView: View {
         
     }
     
-    //MARK: Variables Area
+    //MARK: Launch Replay Area
     var LaunchReplayButton: some View {
         Button {
-            
+            //play replay
+            vm.launchReplay()
         } label: {
-            Text("Launch replay")
+            HStack{
+                Text("Launch replay")
+                Image(systemName: "play.fill")
+            }
+                .foregroundColor(.white)
+                .font(.title2)
+                .padding()
+                .background(
+                    Color.accentColor.opacity(isProcessRunning ? 0.5 : 1)
+                )
+                .cornerRadius(10)
         }
+        .buttonStyle(.plain)
+        .disabled(isProcessRunning)
 
     }
     
+    //MARK: Process Stack View
     var ProcessStackView: some View {
         ForEach(processStack, id: \.id) { process in
             RowView(process: process)
@@ -140,6 +154,7 @@ struct ContentView: View {
         }
     }
     
+    //MARK: Region View
     var RegionView: some View {
         VStack {
             Picker("Choose your Region", selection: $selectedRegion) {
@@ -156,31 +171,13 @@ struct ContentView: View {
         }
     }
     
+    //MARK: Replay Area
     var ReplayArea: some View {
         VStack(spacing: 30){
-            
-            Button {
-                //play replay
-                vm.launchReplay()
-            } label: {
-                HStack{
-                    Text("Play")
-                    Image(systemName: "play.fill")
-                }.foregroundColor(.white)
-                    .font(.title)
-                    .padding()
-                    .background (
-                        Color.accentColor.opacity(isProcessRunning ? 0.5 : 1)
-                    )
-                    .cornerRadius(10)
-            }.buttonStyle(.plain)
-            .disabled(isProcessRunning)
-            
-
             //new replay
             VStack(spacing: 0){
-                Text("⬇️ Add a replay file here ⬇️")
-                    .font(.title2)
+                Text("Add a new replay file here")
+                    .font(.body)
                     .foregroundColor(.accentColor)
                 
                 DragAndDropView(currentProcess: $currentNewReplayProcess)
@@ -188,13 +185,16 @@ struct ContentView: View {
                         vm.currentProcessFailed?.path = newValue.path
                     }
             }
+            
+            LaunchReplayButton
         }
     }
     
+    //MARK: Missing File Area
     var MissingFileArea: some View {
         VStack (spacing: 0) {
-            Text("⬇️ Try to add the missing file ⬇️\n\(currentFailedProcess.type.getInfo())")
-                .font(.title2)
+            Text("Try to add the missing file: \(currentFailedProcess.type.getInfo())")
+                .font(.body)
                 .foregroundColor(.red)
                 .multilineTextAlignment(.center)
             
