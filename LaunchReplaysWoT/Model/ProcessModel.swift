@@ -28,7 +28,7 @@ struct ProcessModel : Identifiable , Equatable{
     
     init() {
         self.id = UUID()
-        self.type = .replay
+        self.type = .lastReplay
         self.status = .initial
         definedPaths(for: type)
     }
@@ -37,7 +37,7 @@ struct ProcessModel : Identifiable , Equatable{
         let initialModel : [ProcessModel] = [
             .init(type: .wine, status: .initial, path: nil),
             .init(type: .executable, status: .initial, path: nil),
-            .init(type: .replay, status: .initial, path: nil)
+            .init(type: .lastReplay, status: .initial, path: nil)
         ]
         return initialModel
     }
@@ -70,12 +70,25 @@ struct ProcessModel : Identifiable , Equatable{
         case .executable:
             let gameFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/win64/WorldOfTanks.exe"
             path = gameFilePath
-        case .replay:
+        case .lastReplay:
             let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/replay_last_battle.wotreplay"
+            path = replayFilePath
+        case .replay(filename: let filename):
+            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/\(filename).wotreplay"
             path = replayFilePath
         case .notDefined:
             path = nil
         }
+    }
+}
+
+extension ProcessModel {
+    static func == (lhs: ProcessModel, rhs: ProcessModel) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.type == rhs.type &&
+               lhs.status == rhs.status &&
+               lhs.path == rhs.path &&
+               lhs.region == rhs.region
     }
 }
 
@@ -91,7 +104,8 @@ enum ProcessStatus {
 }
 
 enum ProcessType {
-    case wine, executable, replay, notDefined
+    case wine, executable,lastReplay, notDefined
+    case replay(filename: String)
     
     func getInfo() -> String {
         switch self {
@@ -99,13 +113,29 @@ enum ProcessType {
             return "Wine🍷 from Wargaming Center"
         case .executable:
             return "WorldOfTanks.exe"
-        case .replay:
+        case .lastReplay:
             return "Your last battle replay file"
+        case .replay(let name):
+            return "Your replay: \(name)"
         default:
             return "Undefined process"
         }
     }
 }
+
+extension ProcessType: Equatable {
+    static func == (lhs: ProcessType, rhs: ProcessType) -> Bool {
+        switch (lhs, rhs) {
+        case (.wine, .wine), (.executable, .executable), (.lastReplay, .lastReplay), (.notDefined, .notDefined):
+            return true
+        case (.replay(let filename1), .replay(let filename2)):
+            return filename1 == filename2
+        default:
+            return false
+        }
+    }
+}
+
 
 
 

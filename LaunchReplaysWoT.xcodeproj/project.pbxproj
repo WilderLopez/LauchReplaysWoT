@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		811A90E22B49A0F300E9129C /* String++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811A90E12B49A0F300E9129C /* String++.swift */; };
 		811EE3AC2A83DDF900FD9A75 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811EE3AB2A83DDF900FD9A75 /* AboutApp.swift */; };
 		811EE3B02A8400ED00FD9A75 /* LoadingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811EE3AF2A8400ED00FD9A75 /* LoadingStatusView.swift */; };
 		811EE3B22A8402F400FD9A75 /* RowProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811EE3B12A8402F400FD9A75 /* RowProcessView.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		811A90E12B49A0F300E9129C /* String++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String++.swift"; sourceTree = "<group>"; };
 		811EE3AB2A83DDF900FD9A75 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		811EE3AD2A83E44100FD9A75 /* LaunchReplaysWoT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LaunchReplaysWoT.entitlements; sourceTree = "<group>"; };
 		811EE3AF2A8400ED00FD9A75 /* LoadingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStatusView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				817CEB142A82425D00BC7187 /* Terminal */,
 				817CEB172A82557100BC7187 /* View++.swift */,
 				81EB19C52A83A9A600FEE7D5 /* ColorExtension.swift */,
+				811A90E12B49A0F300E9129C /* String++.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -210,7 +213,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					81FE25382A596CB900F4CC73 = {
 						CreatedOnToolsVersion = 14.3;
@@ -258,6 +261,7 @@
 				81EB19C62A83A9A600FEE7D5 /* ColorExtension.swift in Sources */,
 				811EE3B22A8402F400FD9A75 /* RowProcessView.swift in Sources */,
 				811EE3B02A8400ED00FD9A75 /* LoadingStatusView.swift in Sources */,
+				811A90E22B49A0F300E9129C /* String++.swift in Sources */,
 				81EB19C22A839C2F00FEE7D5 /* BackgroundSupportable.swift in Sources */,
 				817CEB162A82427000BC7187 /* TerminalHelper.swift in Sources */,
 				81293B432A59B8A60035C40C /* ProcessManager.swift in Sources */,
@@ -306,9 +310,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -366,9 +372,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -395,6 +403,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LaunchReplaysWoT/Preview Content\"";
 				DEVELOPMENT_TEAM = X4R2V67R3F;
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -409,7 +418,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -426,6 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LaunchReplaysWoT/Preview Content\"";
 				DEVELOPMENT_TEAM = X4R2V67R3F;
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -440,7 +450,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ighost.LaunchReplaysWoT;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

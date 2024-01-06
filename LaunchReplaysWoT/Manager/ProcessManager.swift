@@ -60,6 +60,19 @@ class ProcessManager: ObservableObject {
         
     }
     
+    @discardableResult
+    func updateProcessWith(newPath: String) -> Bool {
+        
+        if let index = processStack.firstIndex(where: { $0.type == .lastReplay ||
+            $0.type != .wine && $0.type != .executable && $0.type != .notDefined }) {
+            processStack[index].path = newPath
+            let filename = AppHelper.shared.getFileName(from: newPath)
+            processStack[index].type = .replay(filename: filename)
+            return true
+        }
+        return false
+    }
+    
     func checkFirstProcessToDone() {
         guard let currentProcessFailed = currentProcessFailed else { return }
         if let index = processStack.firstIndex(where: {$0.id == currentProcessFailed.id}) {
@@ -69,6 +82,7 @@ class ProcessManager: ObservableObject {
         }
     }
     
+    //TODO: chequear la visibilidad (Posible metodo private)
     func checkFirstProcessToFail() {
         currentProcessFailed = processStack.first(where: {$0.status == .failed})
     }
@@ -108,7 +122,7 @@ class ProcessManager: ObservableObject {
                 pathWine = process.path
             case .executable:
                 pathExe = process.path
-            case .replay:
+            case .lastReplay , .replay(filename: _):
                 pathReplay = process.path
             case .notDefined:
                 return

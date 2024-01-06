@@ -26,5 +26,8 @@ struct AboutAppCommand: Commands {
                 )
             }
         }
+        CommandGroup(replacing: .newItem) {
+            // nothing here
+        }
     }
 }

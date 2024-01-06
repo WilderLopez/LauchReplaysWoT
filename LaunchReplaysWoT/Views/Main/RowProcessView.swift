@@ -32,7 +32,7 @@ struct RowProcessView_Previews: PreviewProvider {
         VStack(spacing: 15) {
             RowProcessView(process: ProcessModel(type: .wine, status: .done, path: ""))
             RowProcessView(process: ProcessModel(type: .executable, status: .done, path: ""))
-            RowProcessView(process: ProcessModel(type: .replay, status: .loading, path: ""))
+            RowProcessView(process: ProcessModel(type: .lastReplay, status: .loading, path: ""))
         }.padding()
     }
 }

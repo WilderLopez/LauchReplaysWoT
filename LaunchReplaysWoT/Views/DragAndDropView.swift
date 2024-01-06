@@ -53,11 +53,19 @@ struct DragAndDropView :  View {
                             self.showAlertMissingFile = true
                             return }
                         break
-                    case .replay:
-                        guard item.url?.pathExtension == "wotreplay" else {
+                    case .lastReplay:
+                        guard item.url?.pathExtension == "wotreplay", let url = item.url else {
                             debugPrint("🔥 .wotreplay file dont match")
                             self.showAlertMissingFile = true
                             return }
+                        currentProcess.type = .replay(filename: url.lastPathComponent)
+                        break
+                    case .replay(let filename):
+                        guard item.url?.pathExtension == "wotreplay", let url = item.url else {
+                            debugPrint("🔥 \(filename).wotreplay file dont match")
+                            self.showAlertMissingFile = true
+                            return }
+                        currentProcess.type = .replay(filename: url.lastPathComponent)
                         break
                     default : break
                     }
@@ -89,11 +97,19 @@ struct DragAndDropView :  View {
                                             self.showAlertMissingFile = true
                                             return }
                                         break
-                                    case .replay:
+                                    case .lastReplay:
                                         guard url.pathExtension == "wotreplay" else {
                                             debugPrint("🔥 .wotreplay file dont match")
                                             self.showAlertMissingFile = true
                                             return }
+                                        currentProcess.type = .replay(filename: url.lastPathComponent)
+                                        break
+                                    case .replay(let filename):
+                                        guard url.pathExtension == "wotreplay" else {
+                                            debugPrint("🔥 \(filename).wotreplay file dont match")
+                                            self.showAlertMissingFile = true
+                                            return }
+                                        currentProcess.type = .replay(filename: url.lastPathComponent)
                                         break
                                     default : break
                                     }

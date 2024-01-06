@@ -139,7 +139,11 @@ struct MainContentView: View {
                 
                 DragAndDropView(currentProcess: $currentNewReplayProcess)
                     .onChange(of: currentNewReplayProcess) { newValue in
-                        vm.currentProcessFailed?.path = newValue.path
+                        guard let stringUrl = newValue.path else {
+                            debugPrint("Url is nil for dropped/searched file.")
+                            return
+                        }
+                        vm.updateProcessWith(newPath: stringUrl)
                     }
             }
             
