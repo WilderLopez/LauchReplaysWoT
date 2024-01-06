@@ -10,18 +10,18 @@ import SwiftUI
 struct MainContentView: View {
     
     @State var vm : ProcessManager = .init()
-    @State var processStack : [ProcessModel] = []
+    @State private var processStack : [ProcessModel] = []
         
-    @State var currentFailedProcess: ProcessModel = .init()
-    @State var currentNewReplayProcess: ProcessModel = .init()
+    @State private var currentFailedProcess: ProcessModel = .init()
+    @State private var currentNewReplayProcess: ProcessModel = .init()
     
-    @State var showDropAreaWhenFails = false
+    @State private var showDropAreaWhenFails = false
     
-    @State var idProcessHovered : UUID = .init()
+    @State private var idProcessHovered : UUID = .init()
     
-    @State var selectedRegion : GameRegion = .EU
+    @State private var selectedRegion : GameRegion = .EU
     
-    @State var isProcessRunning = false
+    @State private var isProcessRunning = false
     
     var body: some View {
         VStack(spacing: 15) {
@@ -50,52 +50,6 @@ struct MainContentView: View {
         .onReceive(vm.$isProcessRunning) { isRunning in
             self.isProcessRunning = isRunning
         }
-    }
-    
-    //MARK: Method Area
-    func RowView(process: ProcessModel) -> some View {
-         HStack {
-            
-            Text(process.getInfo())
-                .multilineTextAlignment(.leading)
-                .frame(minWidth: 30, maxWidth: .infinity, alignment: .leading)
-            
-            Spacer()
-            
-            LoadingStatusView(status: process.status)
-        }
-        .padding(5)
-        .frame(maxWidth: 350, alignment: .center)
-        .background(Color.primary.colorInvert())
-        .cornerRadius(10)
-        .shadow(color: .gray, radius: 2, x: 0, y: 1)
-        
-    }
-    
-    func LoadingStatusView(status: ProcessStatus) -> some View {
-        VStack {
-            
-            switch status {
-            case .initial:
-                Image(systemName: "exclamationmark.circle.fill")
-                    .font(.system(size: 30))
-                    .foregroundColor(.yellow)
-                
-            case .loading:
-                ProgressView()
-                
-            case .done:
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 30))
-                    .foregroundColor(.green)
-                
-            case .failed:
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 30))
-                    .foregroundColor(.red)
-            }
-        }.frame(height: 40)
-        
     }
     
     //MARK: Launch Replay Area
@@ -129,7 +83,7 @@ struct MainContentView: View {
     //MARK: Process Stack View
     var ProcessStackView: some View {
         ForEach(processStack, id: \.id) { process in
-            RowView(process: process)
+            RowProcessView(process: process)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accentColor, lineWidth: idProcessHovered == process.id ? 3 : 0))
                 .transition(.opacity)
                 .onHover { isHover in
@@ -199,7 +153,7 @@ struct MainContentView: View {
     
     //MARK: Missing File Area
     var MissingFileArea: some View {
-        VStack (spacing: 0) {
+        VStack (spacing: 5) {
             Text("Try to add the missing file: \(currentFailedProcess.type.getInfo())")
                 .font(.body)
                 .foregroundColor(.red)
@@ -210,6 +164,7 @@ struct MainContentView: View {
                     vm.currentProcessFailed?.path = newValue.path
                     vm.checkFirstProcessToDone()
                 }
+            Spacer()
         }
     }
 }
