@@ -73,9 +73,9 @@ struct ProcessModel : Identifiable , Equatable{
         case .lastReplay:
             let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/replay_last_battle.wotreplay"
             path = replayFilePath
-        case .replay(filename: let filename):
-            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/\(filename).wotreplay"
-            path = replayFilePath
+        case .replay(filename: _): break
+//            let replayFilePath = "/Users/\(username)/Library/Application Support/Wargaming.net Game Center/Bottles/wargaminggamecenter64/drive_c/Games/World_of_Tanks_\(self.region)/replays/\(filename)"
+//            path = replayFilePath
         case .notDefined:
             path = nil
         }
